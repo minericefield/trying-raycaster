@@ -1,9 +1,9 @@
 <template>
-  <router-view />
+  <div class="top" />
 </template>
 
-<style lang="scss">
-#app {
+<style lang="scss" scoped>
+.top {
   position: relative;
   width: 100%;
   height: 100%;

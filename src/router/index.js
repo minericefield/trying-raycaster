@@ -1,6 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Top from '@/views/Top.vue'
 
 const routes = [
+  {
+    path: '/',
+    name: 'Top',
+    component: Top
+  }
 ]
 
 const router = createRouter({
