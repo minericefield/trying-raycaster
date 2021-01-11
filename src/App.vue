@@ -2,6 +2,22 @@
   <router-view />
 </template>
 
+<script>
+import { provide } from 'vue'
+
+import { initializeGenerals, INJECTION_KEY as INJECTION_KEY_GENERALS } from '@/modules/generals'
+
+export default {
+  setup () {
+    const generals = initializeGenerals()
+    provide(INJECTION_KEY_GENERALS, generals)
+    // initialize
+    generals.initializeOs()
+    generals.updateWindowsInnerSize()
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   position: relative;

@@ -46,7 +46,7 @@ export const initializeGenerals = () => {
     generals.browser = getBrowser(userAgent)
   }
 
-  const updateInnerSize = () => {
+  const updateWindowsInnerSize = () => {
     generals.windowsInnerWidth = window.innerWidth
     generals.windowsInnerHeight = window.innerHeight
   }
@@ -56,7 +56,7 @@ export const initializeGenerals = () => {
     isSpAspect,
 
     initializeOs,
-    updateInnerSize
+    updateWindowsInnerSize
   }
 }
 
