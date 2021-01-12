@@ -3,6 +3,7 @@ import { reactive, toRefs } from 'vue'
 
 import { initializeBackground } from '@/modules/three/background'
 import { initializeCamera } from '@/modules/three/camera'
+import { initializeLight } from '@/modules/three/light'
 import { initializeRenderer } from '@/modules/three/renderer'
 import { initializeScale } from '@/modules/three/scale'
 
@@ -11,7 +12,8 @@ export const initializeThree = (baseSize) => {
 
   const basis = reactive({
     camera: null,
-    renderer: null
+    renderer: null,
+    light: null
   })
 
   let scene = null
@@ -21,6 +23,9 @@ export const initializeThree = (baseSize) => {
     scene = new Scene()
 
     basis.camera = initializeCamera(baseSize, fullZDistance)
+
+    basis.light = initializeLight(fullZDistance, fullFarWidth, fullFarHeight)
+    scene.add(basis.light)
 
     basis.renderer = initializeRenderer(threeElm, baseSize)
 
