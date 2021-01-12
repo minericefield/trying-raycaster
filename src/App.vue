@@ -12,7 +12,7 @@ export default {
     const generals = initializeGenerals()
     provide(INJECTION_KEY_GENERALS, generals)
     // initialize
-    generals.initializeOs()
+    generals.initializeClient()
     generals.updateWindowsInnerSize()
 
     onMounted(() => {

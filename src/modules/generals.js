@@ -50,10 +50,11 @@ export const initializeGenerals = () => {
     windowsInnerHeight: 0
   })
 
-  const isSpAspect = computed(() => generals.windowsInnerHeight > generals.windowsInnerWidth)
+  const isMobileOrTabletAspect = computed(() => generals.windowsInnerHeight > generals.windowsInnerWidth)
 
-  const initializeOs = () => {
+  const initializeClient = () => {
     const userAgent = window.navigator.userAgent
+
     generals.os = getOs(userAgent)
     generals.browser = getBrowser(userAgent)
     generals.deviceType = getDeviceType(userAgent)
@@ -66,9 +67,9 @@ export const initializeGenerals = () => {
 
   return {
     ...toRefs(generals),
-    isSpAspect,
+    isMobileOrTabletAspect,
 
-    initializeOs,
+    initializeClient,
     updateWindowsInnerSize
   }
 }
