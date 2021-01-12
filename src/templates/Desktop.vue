@@ -23,7 +23,7 @@ export default {
     const threeElm = ref(null)
 
     const threeBaseSize = initializeThreeBaseSize()
-    const three = initializeThree()
+    const three = initializeThree(threeBaseSize)
 
     onMounted(async () => {
       await nextTick()

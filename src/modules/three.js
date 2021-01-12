@@ -1,7 +1,11 @@
 import { Scene } from 'three'
 import { reactive, toRefs } from 'vue'
 
-export const initializeThree = () => {
+import { initializeScale } from '@/modules/three/scale'
+
+export const initializeThree = (baseSize) => {
+  const { fullZDistance, fullFarWidth, fullFarHeight } = initializeScale(baseSize)
+
   const three = reactive({
     scene: null
   })
@@ -11,6 +15,10 @@ export const initializeThree = () => {
   }
 
   return {
+    fullZDistance,
+    fullFarWidth,
+    fullFarHeight,
+
     ...toRefs(three),
 
     execute
