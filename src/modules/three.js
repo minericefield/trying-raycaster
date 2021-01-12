@@ -25,6 +25,14 @@ export const initializeThree = (baseSize) => {
 
     three.background = initializeBackground(fullZDistance, fullFarWidth, fullFarHeight)
     three.scene.add(three.background)
+
+    render()
+  }
+
+  const render = () => {
+    requestAnimationFrame(render)
+
+    three.renderer.render(three.scene, three.camera)
   }
 
   return {
@@ -34,6 +42,7 @@ export const initializeThree = (baseSize) => {
 
     ...toRefs(three),
 
-    execute
+    execute,
+    render
   }
 }
