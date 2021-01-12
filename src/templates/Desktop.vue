@@ -28,7 +28,7 @@ export default {
     onMounted(async () => {
       await nextTick()
       threeBaseSize.updateSize({ width: desktopElm.value.clientWidth, height: desktopElm.value.clientHeight })
-      three.execute()
+      three.execute(threeElm)
     })
 
     return {
