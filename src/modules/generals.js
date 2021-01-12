@@ -30,10 +30,22 @@ const getBrowser = (userAgent) => {
   }
 }
 
+// https://dev.to/itsabdessalam/detect-current-device-type-with-javascript-490j
+const getDeviceType = (userAgent) => {
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(userAgent)) {
+    return 'tablet'
+  } else if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(userAgent)) {
+    return 'mobile'
+  } else {
+    return 'desktop'
+  }
+}
+
 export const initializeGenerals = () => {
   const generals = reactive({
     os: '',
     browser: '',
+    deviceType: '',
     windowsInnerWidth: 0,
     windowsInnerHeight: 0
   })
@@ -44,6 +56,7 @@ export const initializeGenerals = () => {
     const userAgent = window.navigator.userAgent
     generals.os = getOs(userAgent)
     generals.browser = getBrowser(userAgent)
+    generals.deviceType = getDeviceType(userAgent)
   }
 
   const updateWindowsInnerSize = () => {
