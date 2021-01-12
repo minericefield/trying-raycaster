@@ -9,22 +9,23 @@ import { initializeScale } from '@/modules/three/scale'
 export const initializeThree = (baseSize) => {
   const { fullZDistance, fullFarWidth, fullFarHeight } = initializeScale(baseSize)
 
-  const three = reactive({
-    scene: null,
+  const basis = reactive({
     camera: null,
-    renderer: null,
-    background: null
+    renderer: null
   })
 
+  let scene = null
+  let background = null
+
   const execute = (threeElm) => {
-    three.scene = new Scene()
+    scene = new Scene()
 
-    three.camera = initializeCamera(baseSize, fullZDistance)
+    basis.camera = initializeCamera(baseSize, fullZDistance)
 
-    three.renderer = initializeRenderer(threeElm, baseSize)
+    basis.renderer = initializeRenderer(threeElm, baseSize)
 
-    three.background = initializeBackground(fullZDistance, fullFarWidth, fullFarHeight)
-    three.scene.add(three.background)
+    background = initializeBackground(fullZDistance, fullFarWidth, fullFarHeight)
+    scene.add(background)
 
     render()
   }
@@ -32,7 +33,7 @@ export const initializeThree = (baseSize) => {
   const render = () => {
     requestAnimationFrame(render)
 
-    three.renderer.render(three.scene, three.camera)
+    basis.renderer.render(scene, basis.camera)
   }
 
   return {
@@ -40,7 +41,7 @@ export const initializeThree = (baseSize) => {
     fullFarWidth,
     fullFarHeight,
 
-    ...toRefs(three),
+    ...toRefs(basis),
 
     execute,
     render
