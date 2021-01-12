@@ -14,6 +14,7 @@
 <script>
 import { nextTick, onMounted, ref } from 'vue'
 
+import { initializeThree } from '@/modules/three'
 import { initializeThreeBaseSize } from '@/modules/threeBaseSize'
 
 export default {
@@ -22,17 +23,20 @@ export default {
     const threeElm = ref(null)
 
     const threeBaseSize = initializeThreeBaseSize()
+    const three = initializeThree()
 
     onMounted(async () => {
       await nextTick()
       threeBaseSize.updateSize({ width: desktopElm.value.clientWidth, height: desktopElm.value.clientHeight })
+      three.execute()
     })
 
     return {
       desktopElm,
       threeElm,
 
-      threeBaseSize
+      threeBaseSize,
+      three
     }
   }
 }
