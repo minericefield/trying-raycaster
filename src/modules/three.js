@@ -5,7 +5,7 @@ import { initializeBackground } from '@/modules/three/background'
 import { initializeCamera } from '@/modules/three/camera'
 import { initializeLight } from '@/modules/three/light'
 import { initializeRenderer } from '@/modules/three/renderer'
-import { getSpeed } from '@/modules/three/rotationSpeed'
+import { initializeRotationSpeed } from '@/modules/three/rotationSpeed'
 import { initializeScale } from '@/modules/three/scale'
 import { initializeTextGroup } from '@/modules/three/textGroup'
 
@@ -24,6 +24,7 @@ export const initializeThree = (baseSize) => {
 
   let background = null
   let texts = null
+  let rotationSpeed = null
 
   const execute = (threeElm) => {
     scene = new Scene()
@@ -41,13 +42,15 @@ export const initializeThree = (baseSize) => {
     texts = initializeTextGroup(textInfos, fullZDistance)
     scene.add(texts.textGroup)
 
+    rotationSpeed = initializeRotationSpeed(fullZDistance)
+
     render()
   }
 
   const render = () => {
     requestAnimationFrame(render)
 
-    texts.textGroup.rotateY(getSpeed(texts.textGroup.children))
+    texts.textGroup.rotateY(rotationSpeed.getSpeed(texts.textGroup.children))
 
     basis.renderer.render(scene, basis.camera)
   }
