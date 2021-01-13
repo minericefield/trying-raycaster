@@ -48,6 +48,27 @@ export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
     render()
   }
 
+  const render = () => {
+    requestAnimationFrame(render)
+
+    texts.textGroup.rotateY(rotationSpeed.getSpeed(texts.textGroup.children))
+
+    basis.renderer.render(scene, basis.camera)
+
+    if (additionalAnimationFrameMethod) {
+      additionalAnimationFrameMethod()
+    }
+  }
+
+  const onResized = () => {
+    scene.remove(background)
+    background = initializeBackground(fullZDistance, fullFarWidth, fullFarHeight)
+    scene.add(background)
+    // no texts mesh handling in order to change scale by window size
+
+    basis.renderer.setSize(baseSize.width.value, baseSize.height.value)
+  }
+
   /**
    * wanted to use texts in setup so it need to be reactive but couldn't add reactive mesh with the following error
    * TypeError: 'get' on proxy: property 'modelViewMatrix' is a read-only and non-configurable data property on the proxy target but the proxy did not return its actual value (expected '#<Matrix4>' but got '[object Object]')
@@ -68,18 +89,6 @@ export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
     return reactiveTexts
   }
 
-  const render = () => {
-    requestAnimationFrame(render)
-
-    texts.textGroup.rotateY(rotationSpeed.getSpeed(texts.textGroup.children))
-
-    basis.renderer.render(scene, basis.camera)
-
-    if (additionalAnimationFrameMethod) {
-      additionalAnimationFrameMethod()
-    }
-  }
-
   return {
     fullZDistance,
     fullFarWidth,
@@ -89,6 +98,7 @@ export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
     ...toRefs(reactiveTexts),
 
     execute,
+    onResized,
     render
   }
 }
