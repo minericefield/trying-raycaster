@@ -31,7 +31,7 @@ export const initializeAText = (font, text, fullZDistance, position) => {
   const originalTextMeshHeight = new Box3().setFromObject(textMesh).getSize(vector3).y
   // add box for background because spaces in the text is not suitable for raycaster
   const backgroundGeometry = new BoxGeometry(originalTextMeshWidth, originalTextMeshHeight, fullZDistance.value / 100)
-  const backgroundMaterial = new MeshLambertMaterial({ color: 0xFFFFFF })
+  const backgroundMaterial = new MeshLambertMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0 })
   const backgroundMesh = new Mesh(backgroundGeometry, backgroundMaterial)
   backgroundMesh.position.x = originalTextMeshWidth / 2
   backgroundMesh.position.y = originalTextMeshHeight / 2
