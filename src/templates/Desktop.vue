@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { debounce } from 'lodash'
 import { inject, nextTick, onMounted, ref } from 'vue'
 
 import { INJECTION_KEY as INJECTION_KEY_POINT } from '@/modules/point'
@@ -43,6 +44,7 @@ export default {
     const rayCaster = initializeRayCaster(three.camera)
 
     onMounted(async () => {
+      window.addEventListener('resize', debounce(onResized, 500))
       await nextTick()
       threeBaseSize.updateSize({ width: desktopElm.value.clientWidth, height: desktopElm.value.clientHeight })
       three.execute(threeElm)
@@ -51,6 +53,12 @@ export default {
     const onMouseMove = (event) => {
       point.update(event)
       checkWhetherTheMouseOnMeshs()
+    }
+
+    const onResized = async () => {
+      await nextTick()
+      threeBaseSize.updateSize({ width: desktopElm.value.clientWidth, height: desktopElm.value.clientHeight })
+      three.onResized()
     }
 
     const checkWhetherTheMouseOnMeshs = () => {
