@@ -39,7 +39,7 @@ export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
     background = initializeBackground(fullZDistance, fullFarWidth, fullFarHeight)
     scene.add(background)
 
-    texts = initializeTextGroup(textInfos, fullZDistance, fullFarHeight)
+    texts = initializeTextGroup(textInfos, fullZDistance, fullFarHeight, baseSize)
     textsToReactive()
     scene.add(texts.textGroup)
 

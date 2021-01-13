@@ -12,11 +12,11 @@ import {
 // thanks to https://github.com/Sean-Bradley/Bender
 import Bender from '@/modules/three/bender'
 
-export const initializeAText = (font, text, fullZDistance, position) => {
+export const initializeAText = (font, text, fullZDistance, position, baseSize) => {
   const vector3 = new Vector3()
   const options = {
     font,
-    size: fullZDistance.value / 40,
+    size: baseSize.width.value / 72,
     height: fullZDistance.value / 100,
     // bevelEnabled: true,
     // bevelThickness: 0.02,
