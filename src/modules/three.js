@@ -5,6 +5,7 @@ import { initializeBackground } from '@/modules/three/background'
 import { initializeCamera } from '@/modules/three/camera'
 import { initializeLight } from '@/modules/three/light'
 import { initializeRenderer } from '@/modules/three/renderer'
+import { getSpeed } from '@/modules/three/rotationSpeed'
 import { initializeScale } from '@/modules/three/scale'
 import { initializeTextGroup } from '@/modules/three/textGroup'
 
@@ -45,6 +46,8 @@ export const initializeThree = (baseSize) => {
 
   const render = () => {
     requestAnimationFrame(render)
+
+    texts.textGroup.rotateY(getSpeed(texts.textGroup.children))
 
     basis.renderer.render(scene, basis.camera)
   }
