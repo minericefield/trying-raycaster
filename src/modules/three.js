@@ -1,5 +1,5 @@
 import { Scene } from 'three'
-import { reactive, toRefs } from 'vue'
+import { reactive, ref, toRefs } from 'vue'
 
 import { initializeBackground } from '@/modules/three/background'
 import { initializeCamera } from '@/modules/three/camera'
@@ -11,7 +11,7 @@ import { initializeTextGroup } from '@/modules/three/textGroup'
 
 import { textInfos } from '@/modules/three/constants'
 
-export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
+export const initializeThree = (baseSize) => {
   const { fullZDistance, fullFarWidth, fullFarHeight } = initializeScale(baseSize)
 
   const basis = reactive({
@@ -25,6 +25,7 @@ export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
   let background = {}
   let texts = {}
   let rotationSpeed = {}
+  const rotateY = ref(0)
 
   const execute = (threeElm) => {
     scene = new Scene()
@@ -51,13 +52,11 @@ export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
   const render = () => {
     requestAnimationFrame(render)
 
-    texts.textGroup.rotateY(rotationSpeed.getSpeed(texts.textGroup.children))
+    const speed = rotationSpeed.getSpeed(texts.textGroup.children)
+    texts.textGroup.rotateY(speed)
+    rotateY.value += speed
 
     basis.renderer.render(scene, basis.camera)
-
-    if (additionalAnimationFrameMethod) {
-      additionalAnimationFrameMethod()
-    }
   }
 
   const onResized = () => {
@@ -96,6 +95,7 @@ export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
 
     ...toRefs(basis),
     ...toRefs(reactiveTexts),
+    rotateY,
 
     execute,
     onResized,

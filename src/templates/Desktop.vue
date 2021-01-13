@@ -19,7 +19,7 @@
 
 <script>
 import { debounce } from 'lodash'
-import { inject, nextTick, onMounted, ref } from 'vue'
+import { inject, nextTick, onMounted, ref, watch } from 'vue'
 
 import { INJECTION_KEY as INJECTION_KEY_POINT } from '@/modules/point'
 import { initializeRayCaster } from '@/modules/rayCaster'
@@ -39,7 +39,7 @@ export default {
     const point = inject(INJECTION_KEY_POINT)
 
     const threeBaseSize = initializeThreeBaseSize()
-    const three = initializeThree(threeBaseSize, checkWhetherTheMouseOnMeshs)
+    const three = initializeThree(threeBaseSize)
 
     const rayCaster = initializeRayCaster(three.camera)
 
@@ -50,19 +50,19 @@ export default {
       three.execute(threeElm)
     })
 
+    watch(three.rotateY, () => {
+      rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
+    })
+
     const onMouseMove = (event) => {
       point.update(event)
-      checkWhetherTheMouseOnMeshs()
+      rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
     }
 
     const onResized = async () => {
       await nextTick()
       threeBaseSize.updateSize({ width: desktopElm.value.clientWidth, height: desktopElm.value.clientHeight })
       three.onResized()
-    }
-
-    const checkWhetherTheMouseOnMeshs = () => {
-      rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
     }
 
     return {
