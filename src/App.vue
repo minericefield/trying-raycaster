@@ -6,6 +6,7 @@
 import { onMounted, provide } from 'vue'
 
 import { initializeGenerals, INJECTION_KEY as INJECTION_KEY_GENERALS } from '@/modules/generals'
+import { initializePoint, INJECTION_KEY as INJECTION_KEY_POINT } from '@/modules/point'
 
 export default {
   setup () {
@@ -15,12 +16,16 @@ export default {
     generals.initializeClient()
     generals.updateWindowsInnerSize()
 
+    const point = initializePoint()
+    provide(INJECTION_KEY_POINT, point)
+
     onMounted(() => {
       window.addEventListener('resize', generals.updateWindowsInnerSize)
     })
 
     return {
-      generals
+      generals,
+      point
     }
   }
 }
