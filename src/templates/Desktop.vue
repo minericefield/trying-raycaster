@@ -2,25 +2,39 @@
   <div
     ref="desktopElm"
     class="desktop"
+    @mousemove="onMouseMove"
   >
     <canvas
       ref="threeElm"
       :width="threeBaseSize.width.value"
       :height="threeBaseSize.height.value"
     />
+
+    <ray-caster-checker
+      :style="{ top: point.y.value + 'px', left: point.x.value + 'px' }"
+      :should-be-active="true"
+    />
   </div>
 </template>
 
 <script>
-import { nextTick, onMounted, ref } from 'vue'
+import { inject, nextTick, onMounted, ref } from 'vue'
 
+import { INJECTION_KEY as INJECTION_KEY_POINT } from '@/modules/point'
 import { initializeThree } from '@/modules/three'
 import { initializeThreeBaseSize } from '@/modules/threeBaseSize'
 
+import RayCasterChecker from '@/components/RayCasterChecker'
+
 export default {
+  components: {
+    RayCasterChecker
+  },
   setup () {
     const desktopElm = ref(null)
     const threeElm = ref(null)
+
+    const point = inject(INJECTION_KEY_POINT)
 
     const threeBaseSize = initializeThreeBaseSize()
     const three = initializeThree(threeBaseSize)
@@ -31,12 +45,19 @@ export default {
       three.execute(threeElm)
     })
 
+    const onMouseMove = (event) => {
+      point.update(event)
+    }
+
     return {
       desktopElm,
       threeElm,
 
+      point,
       threeBaseSize,
-      three
+      three,
+
+      onMouseMove
     }
   }
 }
