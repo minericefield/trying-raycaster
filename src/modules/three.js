@@ -15,16 +15,16 @@ export const initializeThree = (baseSize) => {
   const { fullZDistance, fullFarWidth, fullFarHeight } = initializeScale(baseSize)
 
   const basis = reactive({
-    camera: null,
-    renderer: null,
-    light: null
+    camera: {},
+    renderer: {},
+    light: {}
   })
 
-  let scene = null
+  let scene = {}
 
-  let background = null
-  let texts = null
-  let rotationSpeed = null
+  let background = {}
+  let texts = {}
+  let rotationSpeed = {}
 
   const execute = (threeElm) => {
     scene = new Scene()
