@@ -40,11 +40,32 @@ export const initializeThree = (baseSize) => {
     scene.add(background)
 
     texts = initializeTextGroup(textInfos, fullZDistance, fullFarHeight)
+    textsToReactive()
     scene.add(texts.textGroup)
 
     rotationSpeed = initializeRotationSpeed(fullZDistance)
 
     render()
+  }
+
+  /**
+   * wanted to use texts in setup so it need to be reactive but couldn't add reactive mesh with the following error
+   * TypeError: 'get' on proxy: property 'modelViewMatrix' is a read-only and non-configurable data property on the proxy target but the proxy did not return its actual value (expected '#<Matrix4>' but got '[object Object]')
+   * so defined another property for reactivity temporary
+   */
+  const reactiveTexts = reactive({
+    helloText: {},
+    worldText: {},
+    awesomeText: {},
+    threeText: {},
+    textGroup: {}
+  })
+  const textsToReactive = () => {
+    Object.keys(texts).forEach(key => {
+      reactiveTexts[key] = texts[key]
+    })
+    
+    return reactiveTexts
   }
 
   const render = () => {
@@ -61,6 +82,7 @@ export const initializeThree = (baseSize) => {
     fullFarHeight,
 
     ...toRefs(basis),
+    ...toRefs(reactiveTexts),
 
     execute,
     render
