@@ -39,7 +39,7 @@ export const initializeThree = (baseSize) => {
     background = initializeBackground(fullZDistance, fullFarWidth, fullFarHeight)
     scene.add(background)
 
-    texts = initializeTextGroup(textInfos, fullZDistance)
+    texts = initializeTextGroup(textInfos, fullZDistance, fullFarHeight)
     scene.add(texts.textGroup)
 
     rotationSpeed = initializeRotationSpeed(fullZDistance)
