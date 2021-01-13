@@ -12,7 +12,7 @@
 
     <ray-caster-checker
       :style="{ top: point.y.value + 'px', left: point.x.value + 'px' }"
-      :should-be-active="true"
+      :should-be-active="rayCaster.isTheMouseOnMeshs.value"
     />
   </div>
 </template>
@@ -21,6 +21,7 @@
 import { inject, nextTick, onMounted, ref } from 'vue'
 
 import { INJECTION_KEY as INJECTION_KEY_POINT } from '@/modules/point'
+import { initializeRayCaster } from '@/modules/rayCaster'
 import { initializeThree } from '@/modules/three'
 import { initializeThreeBaseSize } from '@/modules/threeBaseSize'
 
@@ -39,6 +40,8 @@ export default {
     const threeBaseSize = initializeThreeBaseSize()
     const three = initializeThree(threeBaseSize)
 
+    const rayCaster = initializeRayCaster(three.camera)
+
     onMounted(async () => {
       await nextTick()
       threeBaseSize.updateSize({ width: desktopElm.value.clientWidth, height: desktopElm.value.clientHeight })
@@ -47,6 +50,7 @@ export default {
 
     const onMouseMove = (event) => {
       point.update(event)
+      rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
     }
 
     return {
@@ -56,6 +60,7 @@ export default {
       point,
       threeBaseSize,
       three,
+      rayCaster,
 
       onMouseMove
     }
