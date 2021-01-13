@@ -43,7 +43,7 @@ export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
     textsToReactive()
     scene.add(texts.textGroup)
 
-    rotationSpeed = initializeRotationSpeed(fullZDistance)
+    rotationSpeed = initializeRotationSpeed(baseSize)
 
     render()
   }
