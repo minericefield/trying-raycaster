@@ -11,7 +11,7 @@ import { initializeTextGroup } from '@/modules/three/textGroup'
 
 import { textInfos } from '@/modules/three/constants'
 
-export const initializeThree = (baseSize) => {
+export const initializeThree = (baseSize, additionalAnimationFrameMethod) => {
   const { fullZDistance, fullFarWidth, fullFarHeight } = initializeScale(baseSize)
 
   const basis = reactive({
@@ -74,6 +74,10 @@ export const initializeThree = (baseSize) => {
     texts.textGroup.rotateY(rotationSpeed.getSpeed(texts.textGroup.children))
 
     basis.renderer.render(scene, basis.camera)
+
+    if (additionalAnimationFrameMethod) {
+      additionalAnimationFrameMethod()
+    }
   }
 
   return {

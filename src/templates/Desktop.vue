@@ -38,7 +38,7 @@ export default {
     const point = inject(INJECTION_KEY_POINT)
 
     const threeBaseSize = initializeThreeBaseSize()
-    const three = initializeThree(threeBaseSize)
+    const three = initializeThree(threeBaseSize, checkWhetherTheMouseOnMeshs)
 
     const rayCaster = initializeRayCaster(three.camera)
 
@@ -50,6 +50,10 @@ export default {
 
     const onMouseMove = (event) => {
       point.update(event)
+      checkWhetherTheMouseOnMeshs()
+    }
+
+    const checkWhetherTheMouseOnMeshs = () => {
       rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
     }
 
