@@ -6,6 +6,9 @@ import { initializeCamera } from '@/modules/three/camera'
 import { initializeLight } from '@/modules/three/light'
 import { initializeRenderer } from '@/modules/three/renderer'
 import { initializeScale } from '@/modules/three/scale'
+import { initializeTextGroup } from '@/modules/three/textGroup'
+
+import { textInfos } from '@/modules/three/constants'
 
 export const initializeThree = (baseSize) => {
   const { fullZDistance, fullFarWidth, fullFarHeight } = initializeScale(baseSize)
@@ -17,7 +20,9 @@ export const initializeThree = (baseSize) => {
   })
 
   let scene = null
+
   let background = null
+  let texts = null
 
   const execute = (threeElm) => {
     scene = new Scene()
@@ -31,6 +36,9 @@ export const initializeThree = (baseSize) => {
 
     background = initializeBackground(fullZDistance, fullFarWidth, fullFarHeight)
     scene.add(background)
+
+    texts = initializeTextGroup(textInfos, fullZDistance)
+    scene.add(texts.textGroup)
 
     render()
   }
