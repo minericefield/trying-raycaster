@@ -38,7 +38,7 @@ export const initializeAText = (font, text, fullZDistance, position) => {
   backgroundMesh.rotateY(Math.PI / 10)
 
   const bender = new Bender()
-  const bendingAngle = -Math.PI / (fullZDistance.value * (originalTextMeshWidth / fullZDistance.value * 5))
+  const bendingAngle = -Math.PI / (fullZDistance.value * (originalTextMeshWidth / fullZDistance.value * 4))
   bender.bend(textMesh.geometry, 'y', bendingAngle)
   bender.bend(backgroundMesh.geometry, 'y', bendingAngle)
 
