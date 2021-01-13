@@ -2,7 +2,7 @@
   <div
     ref="mobileOrTabletElm"
     class="mobile-or-tablet"
-    @mousemove="onMouseMove"
+    @touchstart="onTouchStart"
   >
     <canvas
       ref="threeElm"
@@ -54,8 +54,8 @@ export default {
       rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
     })
 
-    const onMouseMove = (event) => {
-      point.update(event)
+    const onTouchStart = (event) => {
+      point.update(event.touches[0])
       rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
     }
 
@@ -74,7 +74,7 @@ export default {
       three,
       rayCaster,
 
-      onMouseMove
+      onTouchStart
     }
   }
 }
