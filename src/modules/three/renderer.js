@@ -9,7 +9,7 @@ export const initializeRenderer = (threeElm, baseSize) => {
       canvas: threeElm.value
     })
     renderer.setClearColor(new Color(0xFFFFFF));
-    renderer.setPixelRatio(window.devicePixelRatio);
+    // renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(baseSize.width.value, baseSize.height.value);
     // renderer.shadowMap.enabled = true
   
