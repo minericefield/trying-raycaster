@@ -15,7 +15,8 @@ export const initializeTextGroup = (textInfos, fullZDistance, fullFarHeight, bas
   })
   textGroup.position.y = -fullFarHeight.value / 100
   textGroup.position.z = fullZDistance.value / 8
-  textGroup.rotateZ(Math.PI / 8)
+  const rotateZ = baseSize.isMobileOrTabletAspect.value ? Math.PI / 4 : Math.PI / 8
+  textGroup.rotateZ(rotateZ)
   return {
     ...texts,
     textGroup
