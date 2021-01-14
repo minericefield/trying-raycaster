@@ -11,6 +11,7 @@
     />
 
     <ray-caster-checker
+      v-show="didMouseMove"
       :style="{ top: point.y.value + 'px', left: point.x.value + 'px' }"
       :should-be-active="rayCaster.isTheMouseOnMeshs.value"
     />
@@ -43,6 +44,8 @@ export default {
 
     const rayCaster = initializeRayCaster(three.camera)
 
+    const didMouseMove = ref(false)
+
     onMounted(async () => {
       window.addEventListener('resize', debounce(onResized, 500))
       await nextTick()
@@ -55,6 +58,7 @@ export default {
     })
 
     const onMouseMove = (event) => {
+      didMouseMove.value = true
       point.update(event)
       rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
     }
@@ -73,6 +77,7 @@ export default {
       threeBaseSize,
       three,
       rayCaster,
+      didMouseMove,
 
       onMouseMove
     }
