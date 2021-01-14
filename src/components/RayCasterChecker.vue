@@ -1,5 +1,6 @@
 <template>
   <div class="ray-caster-checker">
+    <div class="default" />
     <transition name="active-fade">
       <div v-show="shouldBeActive" class="active" />
     </transition>
@@ -22,6 +23,12 @@ export default {
   }
   .active-fade-enter-active, .active-fade-leave-active {
     transition: transform .4s;
+  }
+  .default {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #111111;
   }
   .active {
     position: absolute;
