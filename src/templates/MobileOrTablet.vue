@@ -63,6 +63,7 @@ export default {
       rayCaster.checkWhetherTheMouseOnMeshs(point, three.textGroup.value.children)
     }
 
+    // when orientation changed
     const onResized = async () => {
       await nextTick()
       threeBaseSize.updateSize({ width: mobileOrTabletElm.value.clientWidth, height: mobileOrTabletElm.value.clientHeight })
