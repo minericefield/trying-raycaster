@@ -1,5 +1,7 @@
 # trying-raycaster
 
+Just trying threejs raycaster.  
+
 ## Project setup
 ```
 yarn install
