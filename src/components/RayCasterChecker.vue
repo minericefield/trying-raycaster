@@ -25,6 +25,9 @@ export default {
     transition: transform .4s;
   }
   .default {
+    position: relative;
+    top: -10px;
+    left: -10px;
     width: 20px;
     height: 20px;
     border-radius: 50%;
