@@ -1,30 +1,40 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <router-view />
 </template>
+
+<script>
+import { onMounted, provide } from 'vue'
+
+import { initializeGenerals, INJECTION_KEY as INJECTION_KEY_GENERALS } from '@/modules/generals'
+import { initializePoint, INJECTION_KEY as INJECTION_KEY_POINT } from '@/modules/point'
+
+export default {
+  setup () {
+    const generals = initializeGenerals()
+    provide(INJECTION_KEY_GENERALS, generals)
+    // initialize
+    generals.initializeClient()
+    generals.updateWindowsInnerSize()
+
+    const point = initializePoint()
+    provide(INJECTION_KEY_POINT, point)
+
+    onMounted(() => {
+      window.addEventListener('resize', generals.updateWindowsInnerSize)
+    })
+
+    return {
+      generals,
+      point
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 </style>
