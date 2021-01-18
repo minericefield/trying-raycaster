@@ -14,7 +14,7 @@ const getOs = (userAgent) => {
 const getBrowser = (userAgent) => {
   const lowerCasedUserAgent = userAgent.toLowerCase()
   if (lowerCasedUserAgent.includes('trident')) {
-    return 'ie'
+    return 'ie' // maybe we can't care about ie currently https://stackoverflow.com/questions/64836337/using-vue-3-in-ie11
   } else if (lowerCasedUserAgent.includes('edge')) {
     return 'edge'
   } else if (lowerCasedUserAgent.includes('chrome')) {
